@@ -72,8 +72,8 @@ export default function Home() {
           <Sparkles className="accent" />
           <h2>Growing with intention.</h2>
           <p>
-            Practice, mock tests, and collaboration arrive in later milestones.
-            See exactly what is ready.
+            Original practice and starter guides are ready. Collaboration is
+            coming in the next milestones. See exactly what is ready.
           </p>
         </article>
       </section>

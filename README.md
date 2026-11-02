@@ -1,6 +1,6 @@
 # StudyCanvas
 
-A private learning workspace for JEE and NEET students. **Milestone 1 implementation; not a public-launch-ready product.**
+A private learning workspace for JEE and NEET students. **Milestones 1–2 core implementation; not a public-launch-ready product.**
 
 ## What is included
 
@@ -66,3 +66,7 @@ Rules tests require Java 21+, an emulator download, and an unused port 8080. E2E
 5. Full planner, analytics, accessibility/security/performance QA, PWA.
 
 Optional AI and WebRTC services are not implemented. They never block the foundation. No application has been publicly deployed by this change.
+
+## Learning milestone update
+
+See [Milestone 2](docs/MILESTONE_2.md) for original practice, learning guides, resource downloads, versioned mock simulations, test evidence, and remaining scope. Public guest practice works without Firebase; private progress and mock attempts require verified Firebase accounts.

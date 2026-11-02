@@ -2,7 +2,7 @@
 
 ## Implementation scope
 
-Milestone 1 code is implemented. Final acceptance depends on test evidence below and Firebase-connected verification. Milestones 2–5 have not started.
+Milestone 1 code is implemented. Final acceptance depends on test evidence below and Firebase-connected verification. Milestone 2 core has since been implemented; see docs/MILESTONE_2.md for its current scope and evidence. Milestones 3–5 have not started.
 
 ### Implemented; local verification below
 
@@ -25,7 +25,7 @@ Real Firebase Auth providers, authorized domains, email delivery, credentials, F
 - Teacher/admin roles are represented by the profile type and cannot be self-assigned; dedicated interfaces and approval are not implemented.
 - Preferred subjects are configurable during onboarding and profile edits. Optional avatar upload remains unimplemented.
 
-### Not implemented
+### Not implemented at the earlier foundation checkpoint
 
 Full syllabus, chapters, question bank, practice/mock engines, resources/uploads, doubt/community systems, teacher classes, messaging, notifications, real-time text rooms, WebRTC, AI, analytics, full planner/recurrence, installable PWA, guardian consent, appeal/moderation operations. These remain in their specified milestones.
 
@@ -50,4 +50,4 @@ The grpc-js override pins the compatible patched 1.x range to remove the high-se
 
 Authorization tests mock Firebase Admin and transaction responses. They verify server control flow, token-revocation checks, student role defaults, strict role-injection rejection, verified-email enforcement, same-origin enforcement, and write limits. They do **not** verify actual Firebase credentials or deployed rules.
 
-UI responsiveness and themes are implemented but lack successful browser/visual QA in this environment. Live registration, Google login, email delivery, onboarding/persistence, deletion, cross-account server isolation, and security-rule acceptance remain unverified until Firebase and the emulator/browser prerequisites are available. CI is configured but its remote results are not yet claimed. Milestone 1 is therefore **implemented for review, not fully accepted**. Milestones 2–5 remain unstarted.
+UI responsiveness and themes are implemented but lack successful browser/visual QA in this environment. Live registration, Google login, email delivery, onboarding/persistence, deletion, cross-account server isolation, and security-rule acceptance remain unverified until Firebase and the emulator/browser prerequisites are available. CI is configured but its remote results are not yet claimed. Milestone 1 is therefore **implemented for review, not fully accepted**. This section records the earlier foundation checkpoint; see docs/MILESTONE_2.md for the newer learning checkpoint.

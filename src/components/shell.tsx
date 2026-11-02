@@ -72,7 +72,14 @@ export function Shell({ children }: { children: React.ReactNode }) {
             >
               <Icon size={18} />
               {name}
-              {!["/dashboard", "/settings"].includes(href) && (
+              {![
+                "/dashboard",
+                "/settings",
+                "/learning",
+                "/practice",
+                "/tests",
+                "/resources",
+              ].includes(href) && (
                 <span className="soon-dot" title="Later milestone" />
               )}
             </Link>
@@ -116,7 +123,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
             </span>
           </div>
           <div className="row">
-            <span className="pill">FOUNDATION · M1</span>
+            <span className="pill">LEARNING · M2</span>
             <ThemeToggle />
             <Link
               className="avatar"

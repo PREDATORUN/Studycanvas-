@@ -23,3 +23,8 @@ No birth date, phone number, school address or public activity is collected. Fir
 ## Later domains (not provisioned, no access granted)
 
 userPreferences, subjects, chapters, questions, questionAttempts, practiceSessions, mockTests, mockTestAttempts, doubts, doubtAnswers, communities, communityMembers, communityPosts, studyRooms, roomParticipants, messages, resources, studyPlans, notifications, teacherClasses, classMembers, assignments, reports and auditLogs will receive query-driven schemas and tests in their milestone. This list does not imply implementation. Child-data consent and guardian workflows need applicable legal review before public launch; compliance is not claimed.
+
+## Milestone 2 additions
+
+`users/{uid}/learning/{recordId}` is server-only (the recursive deny rule still applies). `practice_{questionId}` stores the latest submitted response, explanation, correctness and client-reported time; `bookmark_{questionId}` stores bookmark state; `chapter_{chapterId}` stores guide completion. Generated IDs store mock attempts with version, deadline, responses, review flags, submission state and server-computed results. Reads are owner-scoped through the API, capped at 250 records. This is not full attempt history or scalable cursor pagination. No composite index is required for current bounded queries. Recursive account deletion already removes this subcollection.
+Public seed question statements are served from versioned application source; solutions stay server-side until practice submission or mock completion. These are original starter questions, not official PYQs. Test definitions are versioned starter simulations, not official formats. New patterns must retain older versions needed by active attempts.
