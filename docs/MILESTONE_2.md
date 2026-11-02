@@ -27,4 +27,5 @@ Private mock saving, bookmarks, chapter completion and cross-account isolation a
 Milestone 2 is a core implementation checkpoint, not full milestone acceptance. Milestones 3–5 (community, teaching/collaboration, planner/analytics/PWA/final hardening) remain unimplemented. Firebase credentials, providers and domains, Java 21/rules tests and dependency advisory remediation remain outstanding from the foundation checkpoint. No public deployment has been made.
 
 ## Final local check results
+
 TypeScript: PASS. ESLint: PASS with no warnings. Vitest: 36 tests pass across four files. Next.js production build: PASS. Live Firebase tests and browser UI tests: not verified for this checkpoint.

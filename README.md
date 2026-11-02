@@ -1,6 +1,6 @@
 # StudyCanvas
 
-A private learning workspace for JEE and NEET students. **Milestones 1–2 core implementation; not a public-launch-ready product.**
+A private learning workspace for JEE and NEET students. **Core learning, community, classroom communication, planner and analytics implementation. Not a public-launch-ready release.**
 
 ## What is included
 
@@ -70,3 +70,7 @@ Optional AI and WebRTC services are not implemented. They never block the founda
 ## Learning milestone update
 
 See [Milestone 2](docs/MILESTONE_2.md) for original practice, learning guides, resource downloads, versioned mock simulations, test evidence, and remaining scope. Public guest practice works without Firebase; private progress and mock attempts require verified Firebase accounts.
+
+## Latest readiness checkpoint
+
+Read [BUILD_READINESS.md](docs/BUILD_READINESS.md) first for the current feature map, configuration, executed tests and exact remaining master-spec work. Core pages for doubts, communities, rooms, notifications, teacher classes, moderation, planner and analytics are now implemented, with Firebase-connected verification still required.

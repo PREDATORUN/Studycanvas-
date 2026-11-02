@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { adminAuth, database } from "@/lib/firebase/admin";
+import { deleteAccount } from "@/services/delete-account";
 import { mutation, failure, HttpError } from "@/lib/server";
 export const runtime = "nodejs";
 export async function DELETE(req: Request) {
@@ -10,9 +10,7 @@ export async function DELETE(req: Request) {
         401,
         "Sign out and sign in again before deleting your account.",
       );
-    await database().recursiveDelete(database().doc(`users/${user.uid}`));
-    await database().doc(`rateLimits/${user.uid}`).delete();
-    await adminAuth().deleteUser(user.uid);
+    await deleteAccount(user.uid);
     return NextResponse.json({ ok: true });
   } catch (e) {
     return failure(e);

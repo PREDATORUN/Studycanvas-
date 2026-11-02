@@ -28,3 +28,7 @@ userPreferences, subjects, chapters, questions, questionAttempts, practiceSessio
 
 `users/{uid}/learning/{recordId}` is server-only (the recursive deny rule still applies). `practice_{questionId}` stores the latest submitted response, explanation, correctness and client-reported time; `bookmark_{questionId}` stores bookmark state; `chapter_{chapterId}` stores guide completion. Generated IDs store mock attempts with version, deadline, responses, review flags, submission state and server-computed results. Reads are owner-scoped through the API, capped at 250 records. This is not full attempt history or scalable cursor pagination. No composite index is required for current bounded queries. Recursive account deletion already removes this subcollection.
 Public seed question statements are served from versioned application source; solutions stay server-side until practice submission or mock completion. These are original starter questions, not official PYQs. Test definitions are versioned starter simulations, not official formats. New patterns must retain older versions needed by active attempts.
+
+## Latest shared-data model
+
+See [BUILD_READINESS.md](BUILD_READINESS.md) for spaces/posts, doubt answers/votes, invitations, notifications, planner records, contributions, moderation/audit records and deletion behavior. Updated rules allow verified space members to read their room and posts. All client writes remain denied. Teacher/admin authorization uses trusted Auth custom claims.

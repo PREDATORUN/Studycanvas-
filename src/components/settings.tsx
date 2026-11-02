@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { signOut } from "firebase/auth";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -15,7 +16,19 @@ export function Settings() {
     <section className="card onboarding">
       <div className="eyebrow">YOUR ACCOUNT</div>
       <h1>Private by default.</h1>
+      <p>
+        <Link className="text-link" href="/teacher">
+          Teacher classes
+        </Link>{" "}
+        ·{" "}
+        <Link className="text-link" href="/admin">
+          Administration
+        </Link>
+      </p>
       <p>{user?.email}</p>
+      <p>
+        Account UID for invitations: <code>{user?.uid}</code>
+      </p>
       <p>
         Your profile and tasks are visible only to your account. New accounts
         have the student role.

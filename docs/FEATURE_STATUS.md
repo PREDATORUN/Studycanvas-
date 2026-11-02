@@ -1,5 +1,7 @@
 # Feature status
 
+**Current authority: [BUILD_READINESS.md](BUILD_READINESS.md).** The sections below preserve the earlier foundation checkpoint and are historical.
+
 ## Implementation scope
 
 Milestone 1 code is implemented. Final acceptance depends on test evidence below and Firebase-connected verification. Milestone 2 core has since been implemented; see docs/MILESTONE_2.md for its current scope and evidence. Milestones 3–5 have not started.

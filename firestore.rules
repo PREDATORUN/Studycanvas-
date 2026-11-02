@@ -7,6 +7,13 @@ service cloud.firestore {
    allow write: if false;
    match /tasks/{id} { allow read: if request.auth != null && request.auth.uid == uid && request.auth.token.email_verified == true; allow write: if false; }
   }
+  function verified() {return request.auth != null && request.auth.token.email_verified == true;}
+  function member(spaceId) {return verified() && request.auth.uid in get(/databases/$(database)/documents/spaces/$(spaceId)).data.memberIds;}
+  match /spaces/{spaceId} {
+   allow read: if member(spaceId);
+   allow write: if false;
+   match /posts/{postId} {allow read: if member(spaceId);allow write: if false;}
+  }
   match /{document=**} { allow read, write: if false; }
  }
 }

@@ -10,3 +10,5 @@
 8. Review privacy/consent and moderation operations, platform rate limits, secrets, dependency advisories, Firebase billing/quotas and monitoring before allowing real students. No legal compliance is claimed.
 
 No deployment is created automatically. Storage uploads, AI, WebRTC, PWA, teacher/admin operations and the later learning/community domains are not part of this foundation release. Firebase web config is public; Admin credentials and AI keys must never be exposed through NEXT_PUBLIC_ variables or git.
+
+The newest implementation/acceptance status is in BUILD_READINESS.md. Redeploy updated Firestore rules before live room subscriptions. Bootstrap administrator access only with the trusted server-side role script; it is never self-assigned through client input.

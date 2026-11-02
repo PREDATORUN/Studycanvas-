@@ -19,6 +19,10 @@ beforeAll(async () => {
   });
   await env.withSecurityRulesDisabled(async (c) => {
     await setDoc(doc(c.firestore(), "users/alice"), { role: "student" });
+    await setDoc(doc(c.firestore(), "spaces/group"), { memberIds: ["alice"] });
+    await setDoc(doc(c.firestore(), "spaces/group/posts/post"), {
+      text: "Private message",
+    });
   });
 });
 afterAll(async () => {
@@ -68,5 +72,19 @@ it("denies unverified owner", async () => {
         "users/alice",
       ),
     ),
+  );
+});
+
+it("limits room message reads to verified members", async () => {
+  const owner = env
+    .authenticatedContext("alice", { email_verified: true })
+    .firestore();
+  const outsider = env
+    .authenticatedContext("bob", { email_verified: true })
+    .firestore();
+  await assertSucceeds(getDoc(doc(owner, "spaces/group/posts/post")));
+  await assertFails(getDoc(doc(outsider, "spaces/group/posts/post")));
+  await assertFails(
+    setDoc(doc(owner, "spaces/group/posts/post"), { text: "Client bypass" }),
   );
 });
