@@ -29,3 +29,7 @@ Auth data and Firestore deletion are separate operations, not atomic. Deletion r
 Only milestones 1 data exists, so deletion currently covers users/{uid}, tasks, rate limits, and Auth. Every new domain must extend the retention/deletion service before accepting data. Production logging/alerts, CAPTCHA/App Check, guardian/consent workflows where required, appeals, formal accessibility audit, and load testing remain launch gates. No sensitive request payloads are logged by application code.
 
 Use official Next.js and Firebase docs for API updates: https://nextjs.org/docs and https://firebase.google.com/docs/auth/admin/manage-sessions.
+
+## Dependency review
+
+Production audit currently retains six moderate transitive glob/minimatch advisories. A compatible grpc-js 1.x override removes the high-severity transitive advisory; recheck upstream package compatibility before removing it. See FEATURE_STATUS.md for actual execution evidence.
