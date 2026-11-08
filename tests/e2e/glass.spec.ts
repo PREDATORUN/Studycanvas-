@@ -15,6 +15,9 @@ test("live backdrop refraction, moving lens, bounded resources, and idle renderi
   await page.goto("/appearance");
   const lens = page.locator(".optics-lens");
   await expect(lens).toHaveAttribute("data-refracting", "true");
+  await expect
+    .poll(() => lens.evaluate((el) => getComputedStyle(el).backdropFilter))
+    .not.toBe("none");
   console.info(
     "Glass compositor state",
     await lens.evaluate((el) => ({
