@@ -22,6 +22,8 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { LiquidGlassNavigation } from "@/components/liquid-glass/navigation";
+import { AppearanceButton } from "@/components/liquid-glass/appearance";
 const nav = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { name: "My Learning", href: "/learning", icon: BookOpen },
@@ -61,7 +63,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
           StudyCanvas
         </Link>
         <div className="sidebar-caption">YOUR WORKSPACE</div>
-        <nav aria-label="Main navigation">
+        <LiquidGlassNavigation label="Main navigation" active={path}>
           {nav.map(({ name, href, icon: Icon }) => (
             <Link
               aria-current={path === href ? "page" : undefined}
@@ -74,7 +76,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
               {name}
             </Link>
           ))}
-        </nav>
+        </LiquidGlassNavigation>
         <div className="sidebar-note">
           <span className="eyebrow">ONE STEP AT A TIME</span>
           <p>
@@ -84,6 +86,9 @@ export function Shell({ children }: { children: React.ReactNode }) {
           </p>
           <Link href="/onboarding">
             Set your learning goal <ArrowUpRight size={14} />
+          </Link>
+          <Link href="/appearance" className="appearance-link">
+            Personalize your canvas <ArrowUpRight size={14} />
           </Link>
         </div>
       </aside>
@@ -114,6 +119,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
           </div>
           <div className="row">
             <span className="pill">STUDYCANVAS</span>
+            <AppearanceButton />
             <ThemeToggle />
             <Link
               className="avatar"
@@ -128,7 +134,11 @@ export function Shell({ children }: { children: React.ReactNode }) {
           {children}
         </main>
       </div>
-      <nav className="bottom-nav" aria-label="Mobile navigation">
+      <LiquidGlassNavigation
+        className="bottom-nav"
+        label="Mobile navigation"
+        active={path}
+      >
         {nav
           .filter((n) =>
             [
@@ -149,7 +159,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
               <span>{name.replace("Profile & ", "")}</span>
             </Link>
           ))}
-      </nav>
+      </LiquidGlassNavigation>
     </div>
   );
 }

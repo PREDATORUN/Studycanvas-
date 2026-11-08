@@ -2,6 +2,8 @@
 
 This is a working-code review checkpoint. It is **not full completion of the master specification or a public-launch-ready release**. No deployed Firebase project or public application is claimed. See the implementation and validation distinctions below.
 
+Liquid Clear Glass UI work is recorded separately in [LIQUID_GLASS.md](LIQUID_GLASS.md). The new shared material adds an appearance page and changes the frontend presentation, with 64 local tests passing. Its browser visual acceptance is still pending; the feature limitations in this readiness document still apply.
+
 ## Implemented code
 
 | Area            | Current behavior                                                                                                                                                                     |

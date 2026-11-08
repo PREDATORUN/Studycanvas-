@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
+import { AppearanceButton } from "@/components/liquid-glass/appearance";
 export default function Home() {
   return (
     <main className="landing">
@@ -19,6 +20,7 @@ export default function Home() {
           StudyCanvas<span className="pill">EARLY ACCESS</span>
         </Link>
         <div className="row">
+          <AppearanceButton />
           <ThemeToggle />
           <Link href="/login">Sign in</Link>
         </div>
