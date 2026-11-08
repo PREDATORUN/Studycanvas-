@@ -50,8 +50,9 @@ test("live backdrop refraction, moving lens, bounded resources, and idle renderi
     (el as HTMLElement).style.removeProperty("--lg-filter"),
   );
   // Trigger a resize, causing the shared renderer to reinstall the filter.
-  await page.getByLabel("Surface appearance").selectOption("simple");
-  await page.getByLabel("Surface appearance").selectOption("clear");
+  const appearance = page.getByRole("combobox", { name: /Surface appearance/ });
+  await appearance.selectOption("simple");
+  await appearance.selectOption("clear");
   await expect(lens).toHaveAttribute("data-refracting", "true");
   const initial = await lens.boundingBox();
   await page.getByRole("slider", { name: "Lens position" }).focus();
@@ -183,12 +184,15 @@ test("fixed navigation samples scrolling content", async ({ page }, info) => {
     document.querySelector("main")!.append(pattern);
   });
   const before = await header.boundingBox();
-  const first = await header.screenshot();
+  // Locator.screenshot scrolls a sticky element back to its normal-flow
+  // position. Capture its viewport rectangle without moving the document.
+  const first = await page.screenshot({ clip: before!, scale: "css" });
   await page.evaluate(() => window.scrollTo(0, 300));
   await expect.poll(() => page.evaluate(() => scrollY)).toBe(300);
   const after = await header.boundingBox();
   expect(Math.abs(before!.y - after!.y)).toBeLessThan(2);
-  const scrolled = await header.screenshot();
+  const scrolled = await page.screenshot({ clip: after!, scale: "css" });
+  expect(await page.evaluate(() => scrollY)).toBe(300);
   await info.attach("header-before-scroll", {
     body: first,
     contentType: "image/png",
