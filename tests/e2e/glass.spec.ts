@@ -15,12 +15,30 @@ test("live backdrop refraction, moving lens, bounded resources, and idle renderi
   await page.goto("/appearance");
   const lens = page.locator(".optics-lens");
   await expect(lens).toHaveAttribute("data-refracting", "true");
+  console.info(
+    "Glass compositor state",
+    await lens.evaluate((el) => ({
+      backdrop: getComputedStyle(el).backdropFilter,
+      beforeBackdrop: getComputedStyle(el, "::before").backdropFilter,
+      quality: document.documentElement.dataset.glassQuality,
+      map: (el as HTMLElement).style.getPropertyValue("--lg-filter"),
+      rect: el.getBoundingClientRect().toJSON(),
+    })),
+  );
   const before = await lens.screenshot();
   // Turn off only displacement, preserving tint, highlights, geometry and the backdrop.
   await lens.evaluate((el) =>
     (el as HTMLElement).style.setProperty("--lg-filter", "blur(0px)"),
   );
   const neutral = await lens.screenshot();
+  await info.attach("refracting-lens", {
+    body: before,
+    contentType: "image/png",
+  });
+  await info.attach("neutral-lens", {
+    body: neutral,
+    contentType: "image/png",
+  });
   expect(
     before.equals(neutral),
     "SVG displacement must change painted pixels",
@@ -138,14 +156,43 @@ test("all device sizes retain navigation, readable fallback and reduced motion",
   );
 });
 
-test("fixed navigation samples scrolling content", async ({ page }) => {
+test("fixed navigation samples scrolling content", async ({ page }, info) => {
   await page.goto("/learning");
   const header = page.locator(".topbar");
   await expect(header).toHaveAttribute("data-refracting", "true");
+  // A known document-space pattern makes the scroll test independent of how
+  // many chapter cards happen to fit in a particular viewport.
+  await page.evaluate(() => {
+    document.body.style.minHeight = "1800px";
+    const pattern = document.createElement("div");
+    pattern.setAttribute("aria-hidden", "true");
+    Object.assign(pattern.style, {
+      position: "absolute",
+      top: "300px",
+      left: "0",
+      width: "100%",
+      height: "160px",
+      background:
+        "repeating-linear-gradient(90deg,#265c92 0 20px,#ebad63 20px 40px)",
+      zIndex: "1",
+      pointerEvents: "none",
+    });
+    document.querySelector("main")!.append(pattern);
+  });
   const before = await header.boundingBox();
   const first = await header.screenshot();
-  await page.evaluate(() => window.scrollTo(0, 350));
+  await page.evaluate(() => window.scrollTo(0, 300));
+  await expect.poll(() => page.evaluate(() => scrollY)).toBe(300);
   const after = await header.boundingBox();
   expect(Math.abs(before!.y - after!.y)).toBeLessThan(2);
-  expect(first.equals(await header.screenshot())).toBe(false);
+  const scrolled = await header.screenshot();
+  await info.attach("header-before-scroll", {
+    body: first,
+    contentType: "image/png",
+  });
+  await info.attach("header-after-scroll", {
+    body: scrolled,
+    contentType: "image/png",
+  });
+  expect(first.equals(scrolled)).toBe(false);
 });

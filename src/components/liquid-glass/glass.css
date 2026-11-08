@@ -1,4 +1,6 @@
-/* The material sits behind content. Only ::before samples/refracts the backdrop. */
+/* Native backdrop filtering samples pixels behind the surface, not its text.
+   Keep the sampler on the surface itself: a negative-z pseudo element can be
+   isolated from the backdrop by the surface's compositing boundary. */
 :root {
   --bg: #f3f5fb;
   --text: #182237;
@@ -79,8 +81,10 @@ body {
   background: transparent;
   border: 1px solid var(--lg-edge-dark);
   box-shadow: var(--lg-shadow);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+  backdrop-filter: var(--lg-filter, blur(var(--lg-fallback-blur)))
+    saturate(1.06);
+  -webkit-backdrop-filter: var(--lg-filter, blur(var(--lg-fallback-blur)))
+    saturate(1.06);
 }
 .liquid-glass,
 .card,
@@ -126,10 +130,6 @@ body {
     inset 0 1px 1px var(--lg-edge),
     inset 0 -1px 2px var(--lg-edge-dark),
     inset 1px 0 1px #ffffff24;
-  backdrop-filter: var(--lg-filter, blur(var(--lg-fallback-blur)))
-    saturate(1.06);
-  -webkit-backdrop-filter: var(--lg-filter, blur(var(--lg-fallback-blur)))
-    saturate(1.06);
   transform: scale(var(--lg-press));
 }
 .liquid-glass::after,
@@ -573,6 +573,10 @@ fieldset {
   margin-left: auto;
 }
 
+html[data-glass-quality="solid"] [data-lg] {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
 html[data-glass-quality="solid"]
   :is(
     .liquid-glass,
@@ -757,6 +761,10 @@ html[data-glass-quality="solid"] .glass-indicator::before {
     --lg-fill: var(--surface);
     --lg-highlight: transparent;
   }
+  [data-lg] {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
   [data-lg]::before {
     background: var(--surface);
     backdrop-filter: none;
@@ -773,6 +781,8 @@ html[data-glass-quality="solid"] .glass-indicator::before {
   [data-lg] {
     background: Canvas;
     border: 1px solid CanvasText;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
   [data-lg]::before,
   [data-lg]::after {
