@@ -9,5 +9,8 @@ export default defineConfig({
       ),
     },
   },
-  test: { include: ["tests/**/*.test.ts"], exclude: ["tests/rules.test.ts"] },
+  test: {
+    include: ["tests/**/*.test.{ts,tsx}"],
+    exclude: ["tests/rules.test.ts"],
+  },
 });
